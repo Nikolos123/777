@@ -1,8 +1,7 @@
-from django.contrib import auth, messages
-from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from django.urls import reverse, reverse_lazy
@@ -43,9 +42,7 @@ class ProfileFormView(UpdateView,BaseClassContextMixin,UserDispatchMixin):
     template_name = 'authapp/profile.html'
     form_class = UserProfilerForm
     success_url = reverse_lazy('authapp:profile')
-    # success_message = 'OK'
     title = 'GeekShop - Профиль'
-
 
     def form_valid(self, form):
         messages.set_level(self.request,messages.SUCCESS)
