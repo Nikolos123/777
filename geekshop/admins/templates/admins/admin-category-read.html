@@ -1,0 +1,83 @@
+{% extends 'admins/base.html' %}
+
+{% block content %}
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
+                <h1 class="mt-4">{{ title }}</h1>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table mr-1"></i>
+                        Категории
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Наименование</th>
+                                    <th>Описание</th>
+                                    <th>Активный</th>
+                                    <th>Удалить</th>
+                                    <th>Изменить</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Наименование</th>
+                                    <th>Описание</th>
+                                    <th>Активный</th>
+                                    <th>Удалить</th>
+                                    <th>Изменить</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+
+                                {% for category in object_list %}
+                                    <tr>
+                                        <td>{{ category.name }}</td>
+                                        <td>{{ category.description }}</td>
+                                        <td class="text-center">
+                                            {% if category.is_active %}
+                                                <i class="fas fa-check-circle"></i>
+                                            {% else %}
+
+                                                <i class="fas fa-times-circle"></i>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <form action="{% url 'admins:admin_category_delete' category.id %}" method="post">
+                                                {% csrf_token %}
+                                                <input class="btn btn-danger btn-block" type="submit" value="Удалить">
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'admins:admin_category_update' pk=category.id %}">
+                                                <input class="btn btn-success btn-block" type="submit" value="Изменить">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'admins:admin_category_create' %}">
+                            <button class="btn btn-success">Создать категорию</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; GeekShop 2021</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+{% endblock %}

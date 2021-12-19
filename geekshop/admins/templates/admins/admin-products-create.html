@@ -1,0 +1,74 @@
+{% extends 'admins/base.html' %}
+{% load static %}
+{% block content %}
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
+                <h1 class="mt-4">Создание продукта</h1>
+                <form action="{% url 'admins:admins_product_create' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="small mb-1" for="{{ form.name.id_for_label }}">Название</label>
+                                {{ form.name }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="small mb-1" for="{{ form.category.id_for_label }}">Категория</label>
+                                {{ form.category }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row mb-2">
+                        <div class="col-lg-12">
+                            <div class="custom-file">
+                                {{ form.image }}
+                                <label class="custom-file-label" for="{{ form.image.id_for_label }}">Выберите
+                                    изображение</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-6">
+                            <label class="small mb-1" for="{{ form.price.id_for_label }}">Цена</label>
+                            {{ form.price }}
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="small mb-1" for="{{ form.quantity.id_for_label }}">Количество</label>
+                            {{ form.quantity }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-6">
+                            <label class="small mb-1" for="{{ form.description.id_for_label }}">Описание</label>
+                            {{ form.description }}
+                        </div>
+                        <div class="col-lg-6">
+                            <img width="430" height="100" style="margin-top: 28px"
+                                 src="{% static 'vendor/img/products/product_default.png' %}" class="img-thumbnail">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-3" style="margin-top: 33px;">
+                            <input class="btn float-lg-right btn-info btn-block btn-lg" type="submit" value="Сохранить">
+                        </div>
+                        <div class="col-lg-3" style="margin-top: 33px;">
+                            <input type="button" class="btn float-lg-right btn-danger btn-block btn-lg"
+                                   onclick="window.location.href = '{% url 'admins:admins_product' %}';"
+                                   value="Отмена"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; GeekShop 2021</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+{% endblock %}

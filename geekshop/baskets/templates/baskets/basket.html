@@ -1,0 +1,40 @@
+<div class="basket_list">
+    {% if baskets %}
+        <h4 class="mt-3 mb-3 d-flex justify-content-between align-items-center mb-3">
+            Корзина <span class="badge badge-secondary badge-pill">{{ baskets.0.total_quantity }}</span>
+        </h4>
+        {% for basket in baskets %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ basket.product }}</h5>
+                    <p class="card-text">{{ basket.product.description }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item bg-light">
+                        <div class="row text-center">
+                            <div class="col-lg-4">
+                                <input name="{{ basket.id }}" type="number" class="form-control"
+                                       value="{{ basket.quantity }}" min="1">
+                            </div>
+                            <div class="col-lg-4">{{ basket.sum }}</div>
+                            <div class="col-lg-4">
+                                <a href="{% url 'baskets:basket_remove' basket.id %}">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        {% endfor %}
+        <div class="card mb-3">
+            <div class="card-footer">
+                <p class="float-left">Итого</p>
+                <h4 class="float-right">{{ baskets.0.total_sum }} руб.</h4>
+            </div>
+        </div>
+        <button type="button" class="btn btn-success btn-lg float-right">Оформить</button>
+    {% else %}
+        <h4 class="mt-3 mb-3 text-center">Корзина пуста</h4>
+    {% endif %}
+</div>

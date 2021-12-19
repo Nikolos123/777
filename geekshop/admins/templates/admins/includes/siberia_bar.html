@@ -1,0 +1,29 @@
+{% load i18n %}
+<div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Приложения</div>
+                    <a class="nav-link" href="{% url 'admins:admin_users' %}">
+                        <div class="sb-nav-link-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        {% translate 'Users' %}
+                    </a>
+                    <a class="nav-link" href="{% url 'admins:admin_category' %}">
+                        <div class="sb-nav-link-icon">
+                            <i class="fas fa-shopping-basket"></i>
+                        </div>
+                        {% translate 'Categories' %}
+                    </a>
+                    <a class="nav-link" href="{% url 'admins:admins_product' %}">
+                        <div class="sb-nav-link-icon">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        {% translate 'Products' %}
+                    </a>
+                </div>
+            </div>
+            <div class="sb-sidenav-footer"></div>
+        </nav>
+    </div>

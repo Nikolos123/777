@@ -1,0 +1,75 @@
+{% extends 'admins/base.html' %}
+
+{% block content %}
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
+                <h1 class="mt-4">Пользователи</h1>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table mr-1"></i>
+                        Пользователи
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Имя пользователя</th>
+                                    <th>Имя</th>
+                                    <th>Фамилия</th>
+                                    <th>Адрес эл. почты</th>
+                                    <th>Персонал сайта</th>
+                                    <th>Активный</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for user in object_list %}
+                                    <tr>
+                                        <td><a href="{% url 'admins:admin_users_update' user.id %}"
+                                               style="color: dodgerblue">{{ user.username }}</a></td>
+                                        <td>{{ user.first_name }}</td>
+                                        <td>{{ user.last_name }}</td>
+                                        <td>{{ user.email }}</td>
+                                        <td class="text-center">
+                                            {% if user.is_staff %}
+                                                <i class="fas fa-check-circle"></i>
+                                            {% else %}
+                                                <i class="fas fa-times-circle"></i>
+                                            {% endif %}
+
+                                        </td>
+
+
+                                        <td class="text-center">
+
+                                            {% if user.is_active %}
+                                                <i class="fas fa-check-circle"></i>
+                                            {% else %}
+                                                <i class="fas fa-times-circle"></i>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'admins:admin_users_create' %}">
+                            <button class="btn btn-success">Создать пользователя</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; GeekShop 2021</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+{% endblock %}
