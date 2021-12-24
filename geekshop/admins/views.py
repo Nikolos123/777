@@ -56,11 +56,11 @@ class CategoryListView(ListView,BaseClassContextMixin,CustomDispatchMixin):
     title = 'Админка | Список категорий'
 
 
-    def get_queryset(self):
-        if self.kwargs:
-           return ProductCategory.objects.filter(id=self.kwargs.get('pk'))
-        else:
-           return ProductCategory.objects.all()
+    # def get_queryset(self):
+    #     if self.kwargs:
+    #        return ProductCategory.objects.filter(id=self.kwargs.get('pk'))
+    #     else:
+    #        return ProductCategory.objects.all()
 
 class CategoryDeleteView(DeleteView,BaseClassContextMixin,CustomDispatchMixin):
     model = ProductCategory
