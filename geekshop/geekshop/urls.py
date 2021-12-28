@@ -35,6 +35,10 @@ urlpatterns = [
     # path(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
 
+    url('', include('social_django.urls',namespace='social')),
+
+
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

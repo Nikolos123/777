@@ -3,7 +3,8 @@
 {% block content %}
     <div class="col-lg-5">
         {% if form.non_field_errors  or messages %}
-              <div class="alert {% if messages %} alert-success {% else %} alert-warning {% endif %}alert-dismissible fade show" role="alert"
+            <div class="alert {% if messages %} alert-success {% else %} alert-warning {% endif %}alert-dismissible fade show"
+                 role="alert"
                  style="margin-top: 50px;">
 
                 {% if messages %}
@@ -41,6 +42,11 @@
                         <input class="btn btn-primary" type="submit" value="Авторизоваться">
                     </div>
                 </form>
+                <div class="list-group-horizontal card-footer text-center small">
+                    <a href="{% url 'social:begin' 'vk-oauth2' %}?next='/'">
+                        <i class="fab fa-vk"></i>
+                    </a>
+                </div>
             </div>
             <div class="card-footer text-center">
                 <div class="small"><a href="{% url 'authapp:register' %}">Нужен аккаунт? Зарегистрируйся!</a></div>
