@@ -44,17 +44,38 @@
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'authapp:profile' %}">{{ user.username }}
-                            <i class="fas fa-user-circle"></i>
-                        </a>
+{#                        <a class="nav-link" href="{% url 'authapp:profile' %}">{{ user.username }}#}
+{#                            <i class="fas fa-user-circle"></i>#}
+{#                        </a>#}
+
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="" data-toggle="dropdown">
+                                {{ user.username|default:'Пользователь' }}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="nav-link text-dark" href="{% url 'authapp:profile' %}">
+                                        Профиль
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-dark" href="{% url 'orders:list' %}">
+                                        Заказы
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+
                     </li>
                     {% if user.is_superuser %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'admins:index' %}">
-                            <i class="fas fa-users-cog"></i>
-                        </a>
-                    </li>
-                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admins:index' %}">
+                                <i class="fas fa-users-cog"></i>
+                            </a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'authapp:logout' %}">Выйти <i class="fas fa-sign-out-alt"></i></a>
                     </li>
