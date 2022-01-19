@@ -26,8 +26,8 @@
                 {% if item.is_active %}
                     <tr>
                         <td class="td1 orders_list">{{ item.pk }}</td>
-                        <td>{{ item.created|date:"Y-m-d H:i:s" }}</td>
-                        <td>{{ item.updated|date:"Y-m-d H:i:s" }}</td>
+                        <td>{{ item.create|date:"Y-m-d H:i:s" }}</td>
+                        <td>{{ item.update|date:"Y-m-d H:i:s" }}</td>
                         <td>{{ item.get_status_display }}</td>
                         <td>
                             <a href="{% url 'orders:read' item.pk %}">
