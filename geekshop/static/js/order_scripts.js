@@ -86,8 +86,7 @@ window.onload = function () {
     }
 
 
-
-   $(document).on('change','.form-control' ,function (){
+    $(document).on('change', '.form-control', function () {
 
 
         let target = event.target;
@@ -98,31 +97,57 @@ window.onload = function () {
         console.log(orderitem_num)
         console.log(orderitem_product_pk)
 
-       if(orderitem_product_pk){
+        if (orderitem_product_pk) {
 
-           $.ajax({
-               url: '/orders/product/' + orderitem_product_pk + '/price/',
-               success: function (data){
+            $.ajax({
+                url: '/orders/product/' + orderitem_product_pk + '/price/',
+                success: function (data) {
 
-                   if (data.price){
-                       price_arr[orderitem_num] = parseFloat(data.price)
-                       if (isNaN(quantity_arr[orderitem_num])){
-                           quantity_arr[orderitem_num] = 0;
-                       }
-                       let price_html = '<span class="orderitems-' + orderitem_num + '-price">'
-                           + data.price.toString().replace('.',',') + '</span> руб';
-                       let current_tr = $('.order_form table').find('tr:eq('+(orderitem_num+1)+')');
-                       current_tr.find('td:eq(2)').html(price_html)
+                    if (data.price) {
+                        price_arr[orderitem_num] = parseFloat(data.price)
+                        if (isNaN(quantity_arr[orderitem_num])) {
+                            quantity_arr[orderitem_num] = 0;
+                        }
+                        let price_html = '<span class="orderitems-' + orderitem_num + '-price">'
+                            + data.price.toString().replace('.', ',') + '</span> руб';
+                        let current_tr = $('.order_form table').find('tr:eq(' + (orderitem_num + 1) + ')');
+                        current_tr.find('td:eq(2)').html(price_html)
 
-                   }
-               }
-           })
+                    }
+                }
+            })
 
-       }
+        }
 
 
+    })
 
-   })
+
+    $('.basket_list').on('click', 'input[type="number"]', function () {
+        let t_href = event.target
+        $.ajax(
+            {
+                url: "/baskets/edit/" + t_href.name + "/" + t_href.value + "/",
+                success: function (data) {
+                    $('.basket_list').html(data.result)
+                },
+            });
+        event.preventDefault()
+    })
+
+    $('.card_add_basket').on('click', 'button[type="button"]', function () {
+        let t_href = event.target.value
+        $.ajax(
+            {
+                url: "/baskets/add/" + t_href + "/",
+                success: function (data) {
+                    $('.card_add_basket').html(data.result)
+                    alert('товар добавлен вы корзину')
+                },
+            });
+        event.preventDefault()
+        //
+    })
 
 
 }
