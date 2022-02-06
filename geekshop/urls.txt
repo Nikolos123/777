@@ -1,4 +1,2 @@
-http://37.140.198.56/
-http://37.140.198.56/products/
 http://37.140.198.56/users/profile/
-http://37.140.198.56/products/detail/1/
+

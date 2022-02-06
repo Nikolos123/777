@@ -62,7 +62,7 @@ class RegisterListView(FormView, BaseClassContextMixin):
             return HttpResponseRedirect(reverse('index'))
 
 
-class ProfileFormView(UpdateView, BaseClassContextMixin, UserDispatchMixin):
+class ProfileFormView(UpdateView, UserDispatchMixin,BaseClassContextMixin):
     template_name = 'authapp/profile.html'
     form_class = UserProfilerForm
     success_url = reverse_lazy('authapp:profile')
