@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import user_passes_test
+from django.db.models import F
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
@@ -11,6 +12,7 @@ from admins.forms import UserAdminRegisterForm, UserAdminProfileForm, CategoryUp
 from authapp.models import User
 from mainapp.mixin import BaseClassContextMixin, CustomDispatchMixin
 from mainapp.models import Product, ProductCategory
+from django.db import connection
 
 
 class IndexTemplateView(TemplateView):
@@ -69,7 +71,8 @@ class CategoryDeleteView(DeleteView,BaseClassContextMixin,CustomDispatchMixin):
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
-        self.object.is_active = False if self.object.is_active else True
+        self.object.is_active = False
+        self.object.product_set.update(is_active=False)#Поменяю на удаления продукты
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
 
@@ -79,6 +82,20 @@ class CategoryUpdateView(UpdateView,BaseClassContextMixin,CustomDispatchMixin):
     form_class = CategoryUpdateFormAdmin
     title = 'Админка | Обновления категории'
     success_url = reverse_lazy('admins:admin_category')
+
+    def form_valid(self, form):
+        if 'discount' in form.cleaned_data:
+            discount = form.cleaned_data['discount']
+            if discount:
+                print(f'применяется скидка {discount} % к товарам категории {self.object.name}')
+                self.object.product_set.update(price=F('price') * (1 - discount / 100))
+                self.db_profile_by_type(self.__class__, 'UPDATE', connection.queries)
+        return HttpResponseRedirect(self.get_success_url())
+
+    def db_profile_by_type(self,prefix, type, queries):
+        update_queries = list(filter(lambda x: type in x['sql'], queries))
+        print(f'db_profile {type} for {prefix}:')
+        [print(query['sql']) for query in update_queries]
 
 class CategoryCreateView(CreateView,BaseClassContextMixin,CustomDispatchMixin):
     model = ProductCategory
