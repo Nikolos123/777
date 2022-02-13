@@ -172,7 +172,7 @@ LOGIN_ERROR_URL = '/'
 
 
 
-# DOMAIN_NAME = 'http://localhost:8000'
+DOMAIN_NAME = 'http://localhost:8001'
 # EMAIL_HOST = 'localhost'
 # EMAIL_PORT = 25
 # EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
