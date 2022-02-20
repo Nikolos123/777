@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models import F,Q
 from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.db import connection
 
 # Create your views here.
@@ -15,6 +15,7 @@ def basket_add(request,id):
     user_select = request.user
     product = Product.objects.get(id=id)
     baskets = Basket.objects.filter(user=user_select,product=product)
+    test = get_object_or_404(Product,pk=500)
     if baskets:
         basket = baskets.first()
         # basket.quantity += 1

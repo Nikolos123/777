@@ -14,6 +14,22 @@
 {% endif %}
 <div class="container">
 
+    {% if object.status == 'STP' %}
+
+        <form name="payment" method="post" action="https://sci.interkassa.com/" accept-charset="UTF-8">
+            <input type="hidden" name="ik_co_id" value="51237daa8f2a2d8413000000"/>
+            <input type="hidden" name="ik_pm_no" value="{{ object.pk }}"/>
+            <input type="hidden" name="ik_am" value="{{ object.get_total_cost }}"/>
+            <input type="hidden" name="ik_cur" value="RUB"/>
+            <input type="hidden" name="ik_suc_u" value="http://127.0.0.1:8001/orders/payment/result/"/>
+            <input type="hidden" name="ik_suc_m" value="get">
+            <input type="hidden" name="ik_desc" value="Платеж из интернет магазина вещей"/>
+            <button type="submit" class="btn btn-success btn-round form-control my-2 last">
+                Оплатить заказ
+            </button>
+        </form>
+    {% endif %}
+
     <button class="btn btn-info btn-round form-control my-2 last">
         <a href="{% url 'orders:list' %}">
             к списку заказов
